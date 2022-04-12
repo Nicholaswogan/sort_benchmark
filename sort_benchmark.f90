@@ -29,6 +29,8 @@ program sort_benchmark
   do i = 1,size(x)
     read(1,*) x(i)
   enddo
+  close(1)
+  
   x_save = x
   xx = x
   
