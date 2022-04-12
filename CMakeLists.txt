@@ -29,8 +29,20 @@ CPMAddPackage(
   EXCLUDE_FROM_ALL ON
 )
 
+CPMAddPackage(
+  NAME fortran-search-and-sort
+  VERSION 1.0.1
+  GITHUB_REPOSITORY "jacobwilliams/fortran-search-and-sort"
+  GIT_TAG "1.0.1"
+  DOWNLOAD_ONLY ON
+)
+
+add_library(fortran-search-and-sort ${fortran-search-and-sort_SOURCE_DIR}/src/sorting_module.f90)
+
+
+
 # benchmark
 add_executable(sort_benchmark sort_benchmark.f90)
-target_link_libraries(sort_benchmark futils fortran_stdlib)
+target_link_libraries(sort_benchmark futils fortran_stdlib fortran-search-and-sort)
 target_include_directories(sort_benchmark PUBLIC ${CMAKE_Fortran_MODULE_DIRECTORY})
 
