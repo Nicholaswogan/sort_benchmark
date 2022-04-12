@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION "3.14")
+
+project(SORTBENCH LANGUAGES Fortran)
+
+set(CMAKE_Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules")
+
+if ("${CMAKE_Fortran_COMPILER_ID}" MATCHES "GNU")
+  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -Wunused")
+  if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -finline-functions -ftree-vectorize -funroll-loops")
+  endif()
+endif()
+
+# dependencies
+include(cmake/CPM.cmake)
+
+CPMAddPackage(
+  NAME futils
+  VERSION 0.1.0
+  URL "https://github.com/Nicholaswogan/futils/archive/7fc7a57eaee65ad6a825e7fed584eb8a0269d020.zip"
+  EXCLUDE_FROM_ALL ON
+)
+
+CPMAddPackage(
+  NAME fortran_stdlib
+  VERSION 0.2.0
+  GITHUB_REPOSITORY "fortran-lang/stdlib"
+  GIT_TAG "v0.2.0"
+  EXCLUDE_FROM_ALL ON
+)
+
+# benchmark
+add_executable(sort_benchmark sort_benchmark.f90)
+target_link_libraries(sort_benchmark futils fortran_stdlib)
+target_include_directories(sort_benchmark PUBLIC ${CMAKE_Fortran_MODULE_DIRECTORY})
+
