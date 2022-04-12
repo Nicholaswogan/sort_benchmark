@@ -39,10 +39,10 @@ CPMAddPackage(
 
 add_library(fortran-search-and-sort ${fortran-search-and-sort_SOURCE_DIR}/src/sorting_module.f90)
 
-
+add_library(sorter sorter.f90)
 
 # benchmark
 add_executable(sort_benchmark sort_benchmark.f90)
-target_link_libraries(sort_benchmark futils fortran_stdlib fortran-search-and-sort)
+target_link_libraries(sort_benchmark futils fortran_stdlib fortran-search-and-sort sorter)
 target_include_directories(sort_benchmark PUBLIC ${CMAKE_Fortran_MODULE_DIRECTORY})
 
