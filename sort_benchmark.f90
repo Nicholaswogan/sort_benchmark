@@ -8,9 +8,11 @@ program sort_benchmark
   use sorter, only: sortedIndex
   use std_argsort, only: cpp_argsort, cpp_stable_argsort
   use quicksort_2d, only: quicksort_own_2d_swapped
+  use hsort_mod, only: hsort
   implicit none
   
-  real(dp), allocatable :: x1(:), x2(:), x3(:), x4(:), x5(:), x6(:), x7(:,:)
+  real(dp), allocatable :: x1(:), x2(:), x3(:), x4(:), x5(:), x6(:), x7(:,:), &
+                           x8(:)
   real(dp), allocatable :: all_data(:,:)
   integer(8), allocatable :: inds(:)
   integer, allocatable :: inds1(:)
@@ -26,7 +28,7 @@ program sort_benchmark
   open(unit=1,file='../sort_data.dat',form='unformatted',status='old')
 
   allocate(all_data(n,n_dat))
-  allocate(x1(n), x2(n), x3(n), x4(n), x5(n), x6(n), x7(2,n))
+  allocate(x1(n), x2(n), x3(n), x4(n), x5(n), x6(n), x7(2,n), x8(n))
   allocate(inds(n), inds1(n))
   allocate(work(n), iwork(n))
   
@@ -79,6 +81,12 @@ program sort_benchmark
     call quicksort_own_2d_swapped(n, x7)
   enddo
   call cpu_time(t(8))
+  do i = 1,n_dat
+    x8 = all_data(:,i)
+    call hsort(n, inds1, x8(:))
+    x8 = x8(inds1)
+  enddo
+  call cpu_time(t(9))
 
   write(output_unit,"(a)")          "| algorithm                     | Time for 1 sort (s) |"
   write(output_unit,"(a)")          "| ----------------------------- | ------------------- |"
@@ -89,6 +97,7 @@ program sort_benchmark
   write(output_unit,"(a,es19.7,a)") "| C++ std::sort                 | ",(t(6)-t(5))/real(n_dat),' |'
   write(output_unit,"(a,es19.7,a)") "| C++ std::stable_sort          | ",(t(7)-t(6))/real(n_dat),' |'
   write(output_unit,"(a,es19.7,a)") "| quicksort_own_2d_swapped      | ",(t(8)-t(7))/real(n_dat),' |'
+  write(output_unit,"(a,es19.7,a)") "| hsort                         | ",(t(9)-t(8))/real(n_dat),' |'
   write(output_unit,"(a)") ""
   write(output_unit,"(a,es25.18)") "x1(1) = ",x1(1)
   write(output_unit,"(a,es25.18)") "x2(1) = ",x2(1)
@@ -97,6 +106,7 @@ program sort_benchmark
   write(output_unit,"(a,es25.18)") "x5(1) = ",x5(1)
   write(output_unit,"(a,es25.18)") "x6(1) = ",x6(1)
   write(output_unit,"(a,es25.18)") "x7(1,1) = ",x7(1,1)
+  write(output_unit,"(a,es25.18)") "x8(1) = ",x8(1)
   write(output_unit,"(a)") ""
   
   if (.not. all(x1 == x2)) error stop "sorting failed 2"
@@ -105,5 +115,6 @@ program sort_benchmark
   if (.not. all(x1 == x5)) error stop "sorting failed 5"
   if (.not. all(x1 == x6)) error stop "sorting failed 6"
   if (.not. all(x1 == x7(1,:))) error stop "sorting failed 6"
+  if (.not. all(x1 == x8)) error stop "sorting failed 6"
   
 end program
