@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION "3.14")
 
-project(SORTBENCH LANGUAGES Fortran)
+project(SORTBENCH LANGUAGES Fortran CXX)
 
 set(CMAKE_Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules")
+
+set(CMAKE_CXX_STANDARD 20)
 
 if ("${CMAKE_Fortran_COMPILER_ID}" MATCHES "GNU")
   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -Wunused")
@@ -41,8 +43,10 @@ add_library(fortran-search-and-sort ${fortran-search-and-sort_SOURCE_DIR}/src/so
 
 add_library(sorter sorter.f90)
 
+add_library(std_argsort std_argsort.cpp std_argsort.f90)
+
 # benchmark
 add_executable(sort_benchmark sort_benchmark.f90)
-target_link_libraries(sort_benchmark futils fortran_stdlib fortran-search-and-sort sorter)
+target_link_libraries(sort_benchmark futils fortran_stdlib fortran-search-and-sort sorter std_argsort)
 target_include_directories(sort_benchmark PUBLIC ${CMAKE_Fortran_MODULE_DIRECTORY})
 

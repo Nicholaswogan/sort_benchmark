@@ -4,11 +4,12 @@ I'm trying to find the fastest algorithm for sorting many sets of arrays in `sor
 
 | algorithm                     | Time for 1 sort (s) |
 | ----------------------------- | ------------------- |
-| futils argsort                |       1.4215727E-05 |
-| stdlib sort_index             |       1.7480909E-06 |
-| sorting_module quicksort      |       3.1813727E-05 |
-| sorter sortedIndex            |       3.1142727E-06 |
-
+| futils argsort                |       1.4083636E-05 |
+| stdlib sort_index             |       1.7360909E-06 |
+| sorting_module quicksort      |       3.1809000E-05 |
+| sorter sortedIndex            |       2.6139091E-06 |
+| C++ std::sort                 |       1.7985455E-06 |
+| C++ std::stable_sort          |       1.8570909E-06 |
 
 **I would really appreciate any suggested sorting routines that are faster! Suggest by raising an issue or making a pull request. Thanks.**
 
