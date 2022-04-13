@@ -6,10 +6,14 @@ set(CMAKE_Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/modules")
 
 set(CMAKE_CXX_STANDARD 20)
 
+if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
+endif()
+
 if ("${CMAKE_Fortran_COMPILER_ID}" MATCHES "GNU")
   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -Wunused")
   if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -finline-functions -ftree-vectorize -funroll-loops")
+    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -finline-functions -ftree-vectorize -funroll-loops -march=native")
   endif()
 endif()
 
