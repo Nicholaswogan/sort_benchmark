@@ -45,8 +45,10 @@ add_library(sorter sorter.f90)
 
 add_library(std_argsort std_argsort.cpp std_argsort.f90)
 
+add_library(quicksort_2d quicksort_2d.f90)
+
 # benchmark
 add_executable(sort_benchmark sort_benchmark.f90)
-target_link_libraries(sort_benchmark futils fortran_stdlib fortran-search-and-sort sorter std_argsort)
+target_link_libraries(sort_benchmark futils fortran_stdlib fortran-search-and-sort sorter std_argsort quicksort_2d)
 target_include_directories(sort_benchmark PUBLIC ${CMAKE_Fortran_MODULE_DIRECTORY})
 
