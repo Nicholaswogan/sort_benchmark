@@ -114,7 +114,7 @@ program sort_benchmark
   if (.not. all(x1 == x4)) error stop "sorting failed 4"
   if (.not. all(x1 == x5)) error stop "sorting failed 5"
   if (.not. all(x1 == x6)) error stop "sorting failed 6"
-  if (.not. all(x1 == x7(1,:))) error stop "sorting failed 6"
-  if (.not. all(x1 == x8)) error stop "sorting failed 6"
+  if (.not. all(x1 == x7(1,:))) error stop "sorting failed 7"
+  if (.not. all(x1 == x8)) error stop "sorting failed 8"
   
 end program
