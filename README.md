@@ -4,14 +4,15 @@ I'm trying to find the fastest algorithm for sorting many sets of arrays in `sor
 
 | algorithm                     | Time for 1 sort (s) |
 | ----------------------------- | ------------------- |
-| futils argsort                |       1.4348182E-05 |
-| stdlib sort_index             |       1.7370909E-06 |
-| sorting_module quicksort      |       3.1661182E-05 |
-| sorter sortedIndex            |       2.6053636E-06 |
-| C++ std::sort                 |       1.7993636E-06 |
-| C++ std::stable_sort          |       1.8520909E-06 |
-| quicksort_own_2d_swapped      |       4.0751818E-06 |
-| hsort                         |       1.3036364E-06 |
+| futils argsort                |       1.4105545E-05 |
+| stdlib sort_index             |       1.7351818E-06 |
+| sorting_module quicksort      |       3.1843909E-05 |
+| sorter sortedIndex            |       2.6095455E-06 |
+| C++ std::sort                 |       1.7902727E-06 |
+| C++ std::stable_sort          |       1.8655455E-06 |
+| quicksort_own_2d_swapped      |       4.0914545E-06 |
+| hsort                         |       1.2919091E-06 |
+| mrgrnk                        |       1.5384545E-06 |
 
 **I would really appreciate any suggested sorting routines that are faster! Suggest by raising an issue or making a pull request. Thanks.**
 
