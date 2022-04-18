@@ -21,7 +21,7 @@ program sort_benchmark
   real(dp), allocatable ::  work(:)
   integer(8), allocatable :: iwork(:)
   
-  integer, parameter :: n_dat = 200*55
+  integer, parameter :: n_dat = 200*67*3
   integer, parameter :: n = 256
   real(dp) :: t(20)
   integer :: i
